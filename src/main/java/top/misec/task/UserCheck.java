@@ -5,6 +5,8 @@ import lombok.extern.log4j.Log4j2;
 import top.misec.apiquery.ApiList;
 import top.misec.utils.HttpUtil;
 
+import java.util.Objects;
+
 import static top.misec.task.TaskInfoHolder.STATUS_CODE_STR;
 
 
@@ -27,12 +29,12 @@ public class UserCheck implements Task {
                     && userJson.get("data").getAsJsonObject().get("isLogin").getAsBoolean()) {
                 log.info("Cookies有效，登陆成功");
 
-                JsonObject matchInfo = HttpUtil.doGet(ApiList.queryMatchInfo).get("data").getAsJsonObject();
+                JsonObject matchInfo = HttpUtil.doGet(ApiList.queryMatchInfo);
 
-                if (matchInfo == null) {
+                if (matchInfo == null || Objects.isNull(matchInfo.get("data")) || matchInfo.get("data").isJsonNull()) {
                     log.info("获取赛事预测信息失败,您应该从未参与过预测，请手动预测一场比赛后重试");
                 } else {
-                    matchInfo = matchInfo.get("guess").getAsJsonObject();
+                    matchInfo = matchInfo.get("data").getAsJsonObject().get("guess").getAsJsonObject();
                 }
                 log.info("获取预测信息成功");
                 log.info("预测总场数:{}", matchInfo.get("total_guess").getAsInt());
