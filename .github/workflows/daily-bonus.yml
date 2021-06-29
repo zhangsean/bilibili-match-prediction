@@ -8,7 +8,7 @@ on:
     branches:
       - sean
   schedule:
-    - cron: 0 16 * * *
+    - cron: 0 0 * * *
   watch:
    types: [started]
    if: github.event.repository.owner.id == github.event.sender.id
@@ -31,7 +31,7 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-9a0fc6e373552ea55fca86b66dd4157f4491b189d744cbc79ba4fb9bd50a81bc
+            ${{ runner.os }}-maven-84d60e0d6a42a201cd0c681ea9619d8646f33f23d2d7bc9e30ded1dcc38e37301
 
       - name: Run daily bonus
         env:
