@@ -31,7 +31,7 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-84d60e0d6a42a201cd0c681ea9619d8646f33f23d2d7bc9e30ded1dcc38e381
+            ${{ runner.os }}-maven-84d60e0d6a42a201cd0c681ea9619d8646f33f23d2d7bc9e30ded1dcc38e3751
 
       - name: Run daily bonus
         env:
