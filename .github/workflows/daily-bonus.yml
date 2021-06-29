@@ -31,7 +31,7 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            ${{ runner.os }}-maven-84d60e0d6a42a201cd0c681ea9619d8646f33f23d2d7bc9e30ded1dcc38e3751
+            ${{ runner.os }}-maven-84d60e0d6a42a201cd0c681ea9619d8646f33f23d2d7bc9e30ded1dcc38e381
 
       - name: Run daily bonus
         env:
@@ -43,6 +43,7 @@ jobs:
           TELEGRAMCHATID: ${{secrets.TELEGRAMCHATID}}
         run: |
           mvn clean compile
+          sed -i '/skipDailyTask/s/true/${{secrets.SKIPDAILYTASK}}/g' target/classes/config.json
           sed -i '/predictNumberOfCoins/s/15/${{secrets.PREDICT_COINS}}/g' target/classes/config.json
           sed -i '/minimumNumberOfCoins/s/30/${{secrets.RETAIN_COINS}}/g' target/classes/config.json
           mvn package
